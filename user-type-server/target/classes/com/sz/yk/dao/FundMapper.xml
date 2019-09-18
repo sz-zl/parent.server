@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.FundMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Fund">
+        <id column="FUND_NO" property="fundNo" />
+        <result column="USER_ID" property="userId" />
+        <result column="LOAN_ID" property="loanId" />
+        <result column="FUND_MON" property="fundMon" />
+        <result column="YEAR_INTEREST_RATE" property="yearInterestRate" />
+        <result column="FUND_DAY" property="fundDay" />
+        <result column="TOTLE_DAY" property="totleDay" />
+        <result column="PAYBACK_DATE" property="paybackDate" />
+        <result column="PAYBACK_MON" property="paybackMon" />
+        <result column="INCOME_DAY" property="incomeDay" />
+        <result column="INCOME_YEAR" property="incomeYear" />
+        <result column="INCOME_TOTLE" property="incomeTotle" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        FUND_NO, USER_ID, LOAN_ID, FUND_MON, YEAR_INTEREST_RATE, FUND_DAY, TOTLE_DAY, PAYBACK_DATE, PAYBACK_MON, INCOME_DAY, INCOME_YEAR, INCOME_TOTLE
+    </sql>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.FeeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Fee">
+        <id column="FEE_ID" property="feeId" />
+        <result column="FEE" property="fee" />
+        <result column="BEAR" property="bear" />
+        <result column="TYPE" property="type" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        FEE_ID, FEE, BEAR, TYPE
+    </sql>
+
+</mapper>

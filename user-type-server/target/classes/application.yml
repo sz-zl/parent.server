@@ -1,0 +1,33 @@
+spring:
+    datasource:      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@localhost:1521:database
+      username: zhangsan
+      password: abc    application:
+        name: user-type-server    mvc:      view:        prefix: /
+        suffix: .jsp
+server:
+    port: 9999
+eureka:
+    instance:
+        instance-id: ${spring.cloud.client.ipaddress}:${server.port}
+        hostname: localhost
+    client:
+        serviceUrl:
+            defaultZone: http://10.1.14.39:8888/eureka/
+info:
+    app:
+        name: show-helloservice
+    company:
+        name: www.yk.com
+    build:
+        artifactId: user-type-server
+        version: 0.0.1-SNAPSHOT
+    author:
+        name: yk
+    server:
+        port: ${server.port}
+mybatis-plus:
+  global-config:    db-column-underline: true
+    id-type: 0  type-aliases-package: com.sz.p2p.entity
+  
+  

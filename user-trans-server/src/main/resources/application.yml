@@ -1,0 +1,17 @@
+spring:
+    thymeleaf:      cache: false
+    devtools:      restart:        enabled: true
+        exclude: WEB-INF/**
+    datasource:      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@localhost:1521:database
+      username: zhangsan
+      password: abc    application:
+        name: user-trans-server    mvc:      view:        prefix: /
+        suffix: .jsp
+server:
+    port: 9999
+mybatis-plus:
+  global-config:    db-column-underline: true
+    id-type: 0  type-aliases-package: com.sz.p2p.entity
+  
+  

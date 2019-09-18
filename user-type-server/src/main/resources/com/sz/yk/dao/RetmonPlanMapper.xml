@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.RetmonPlanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.RetmonPlan">
+        <id column="RET_MON_ID" property="retMonId" />
+        <result column="USER_ID" property="userId" />
+        <result column="CLAIM_ID" property="claimId" />
+        <result column="RET_MON_WAY" property="retMonWay" />
+        <result column="RET_MON_NUM" property="retMonNum" />
+        <result column="RET_MON_DATE" property="retMonDate" />
+        <result column="RET_MON_FEE" property="retMonFee" />
+        <result column="RET_MON_DATE_NUM" property="retMonDateNum" />
+        <result column="STATUS" property="status" />
+        <result column="TOTLE_RET_MON" property="totleRetMon" />
+        <result column="LAST_RET_MON" property="lastRetMon" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        RET_MON_ID, USER_ID, CLAIM_ID, RET_MON_WAY, RET_MON_NUM, RET_MON_DATE, RET_MON_FEE, RET_MON_DATE_NUM, STATUS, TOTLE_RET_MON, LAST_RET_MON
+    </sql>
+
+</mapper>

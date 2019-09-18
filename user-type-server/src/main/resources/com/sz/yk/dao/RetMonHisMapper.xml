@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.RetMonHisMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.RetMonHis">
+        <id column="RET_MON_HIS_ID" property="retMonHisId" />
+        <result column="RET_MON_NUM" property="retMonNum" />
+        <result column="STATUS" property="status" />
+        <result column="HIS_DATE" property="hisDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        RET_MON_HIS_ID, RET_MON_NUM, STATUS, HIS_DATE
+    </sql>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.LoanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Loan">
+        <id column="LOAN_NO" property="loanNo" />
+        <result column="LOAN_ID" property="loanId" />
+        <result column="USER_ID" property="userId" />
+        <result column="YEAR_INTEREST_RATE" property="yearInterestRate" />
+        <result column="DEADLINE" property="deadline" />
+        <result column="TOTLE_MON" property="totleMon" />
+        <result column="RECRUITED_MON" property="recruitedMon" />
+        <result column="USINGS" property="usings" />
+        <result column="STATUS" property="status" />
+        <result column="OTHER_LIABILITY" property="otherLiability" />
+        <result column="MIN_MON" property="minMon" />
+        <result column="RETURN_MON_WAY" property="returnMonWay" />
+        <result column="RETURN_MON_SOURCE" property="returnMonSource" />
+        <result column="GET_MON_DAY" property="getMonDay" />
+        <result column="CREATE_TIME" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        LOAN_NO, LOAN_ID, USER_ID, YEAR_INTEREST_RATE, DEADLINE, TOTLE_MON, RECRUITED_MON, USINGS, STATUS, OTHER_LIABILITY, MIN_MON, RETURN_MON_WAY, RETURN_MON_SOURCE, GET_MON_DAY, CREATE_TIME
+    </sql>
+
+</mapper>

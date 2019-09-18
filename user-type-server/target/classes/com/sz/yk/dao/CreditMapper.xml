@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.CreditMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Credit">
+        <id column="CREDIT_ID" property="creditId" />
+        <result column="APP_LOAN_NUM" property="appLoanNum" />
+        <result column="SUC_LOAN_NUM" property="sucLoanNum" />
+        <result column="OVERDUE_NUM" property="overdueNum" />
+        <result column="OVERDUE_MON" property="overdueMon" />
+        <result column="TOTLE_MON" property="totleMon" />
+        <result column="AVAILABLE_MON" property="availableMon" />
+        <result column="USED_MON" property="usedMon" />
+        <result column="RETURN_MON_NUM" property="returnMonNum" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        CREDIT_ID, APP_LOAN_NUM, SUC_LOAN_NUM, OVERDUE_NUM, OVERDUE_MON, TOTLE_MON, AVAILABLE_MON, USED_MON, RETURN_MON_NUM
+    </sql>
+
+</mapper>

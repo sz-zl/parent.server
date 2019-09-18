@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.yk.dao.ClaimMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Claim">
+        <id column="CLAIM_NO" property="claimNo" />
+        <result column="CLAIM_ID" property="claimId" />
+        <result column="LOAN_ID" property="loanId" />
+        <result column="LOAN_USER_ID" property="loanUserId" />
+        <result column="FUND_USER_ID" property="fundUserId" />
+        <result column="CLAIM_MON" property="claimMon" />
+        <result column="RETURN_MON_DAY" property="returnMonDay" />
+        <result column="RETURN_MON_NUM" property="returnMonNum" />
+        <result column="STATUS" property="status" />
+        <result column="CLAIM_SELL_TIME" property="claimSellTime" />
+        <result column="CLAIM_BUY_DATE" property="claimBuyDate" />
+        <result column="CLAIM_BUY_TIME" property="claimBuyTime" />
+        <result column="HAS_CLAIM_MIN_TIME" property="hasClaimMinTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        CLAIM_NO, CLAIM_ID, LOAN_ID, LOAN_USER_ID, FUND_USER_ID, CLAIM_MON, RETURN_MON_DAY, RETURN_MON_NUM, STATUS, CLAIM_SELL_TIME, CLAIM_BUY_DATE, CLAIM_BUY_TIME, HAS_CLAIM_MIN_TIME
+    </sql>
+
+</mapper>
