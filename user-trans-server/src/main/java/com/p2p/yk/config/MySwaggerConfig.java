@@ -32,13 +32,13 @@ public class MySwaggerConfig {
 	public ApiInfo apiInfo() {
 		
 		//作者信息
-		Contact contact=new Contact("djx", "", ""); 
+		Contact contact=new Contact("姚奎", "", "m18374903481@163.com"); 
 		
 		return new ApiInfo(
-				"djx的API文档",
+				"姚奎的API文档",
 				"文档描述",
 				"1.0",
-				"https://www.baidu.com",
+				"",
 				contact,
 		        "Apache 2.0",
 		        "http://www.apache.org/licenses/LICENSE-2.0",

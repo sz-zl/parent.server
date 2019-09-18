@@ -1,6 +1,7 @@
 package com.sz.p2p.entity;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -23,8 +24,8 @@ public class UserTrans extends Model<UserTrans> {
     /**
      * 交易编号
      */
-    @TableId(value = "TRANS_ID", type = IdType.AUTO)
-    private Double transId;
+    @TableId(value = "TRANS_ID", type = IdType.INPUT)
+    private Long transId;
     /**
      * 用户id
      */
@@ -59,11 +60,11 @@ public class UserTrans extends Model<UserTrans> {
     private Double status;
 
 
-    public Double getTransId() {
+    public Long getTransId() {
         return transId;
     }
 
-    public void setTransId(Double transId) {
+    public void setTransId(Long transId) {
         this.transId = transId;
     }
 
