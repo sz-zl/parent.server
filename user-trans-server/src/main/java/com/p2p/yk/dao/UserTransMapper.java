@@ -1,6 +1,10 @@
 package com.p2p.yk.dao;
 
 import com.sz.p2p.entity.UserTrans;
+
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface UserTransMapper extends BaseMapper<UserTrans> {
 
+	List<UserTrans> selectPageList(Map<String, Object> map);
 }

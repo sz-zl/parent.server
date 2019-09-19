@@ -2,7 +2,9 @@ package com.p2p.yk.controller;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.p2p.yk.service.UserTransInsertService;
 import com.p2p.yk.service.UserTransService;
 import com.sz.p2p.entity.UserTrans;
+import com.sz.p2p.entity.UserTransInsert;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import net.bytebuddy.asm.Advice.This;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -34,9 +39,14 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @RequestMapping("/userTrans")
 public class UserTransController {
+	
+	private int cp=1;
+	private int ps=10;
 
 	@Autowired
 	private UserTransService userTransService;
+	@Autowired
+	private UserTransInsertService userTransInsertService;
 	
 	@GetMapping("show")
 	@ApiOperation(value="查询数据",notes = "注意问题")
@@ -64,10 +74,11 @@ public class UserTransController {
 	@ApiOperation(value="添加用户交易记录",notes = "所提供的数据必须合法")
 	@ApiModelProperty(value = "添加的对象")
 	@ResponseBody
-	public void saveTrans1(UserTrans userTrans,Model model) {
-		userTrans.setTransId(12321L);
-		userTrans.setTransDate(new Date());
-		userTransService.insert(userTrans);
+	public void saveTrans1(UserTransInsert userTransInsert,Model model) {
+		//随便赋值,触发器会修改
+		userTransInsert.setTransId(12321L);
+		userTransInsert.setTransDate(new Date());
+		userTransInsertService.insert(userTransInsert);
 	}
 	/** 
 	 * 添加交易记录
@@ -86,12 +97,24 @@ public class UserTransController {
 	/**
 	 * 查看所有交易记录+分页
 	 */
-	@PostMapping("listUserTrans1")
+	@GetMapping("listUserTrans1")
 	@ApiOperation(value="获取所有用户交易记录",notes = "所提供的数据必须合法")
 	@ApiModelProperty(value = "添加的对象")
-	public List<UserTrans> listUserTrans1(){
-		//userTransService.selectPage(page)
-		return null;
+	@ResponseBody
+	public List<UserTrans> listUserTrans1(Integer cp,Integer ps,Model model){
+		if(cp!=null&&cp>0) {
+			this.cp=cp;
+		}
+		if(ps!=null&&ps>0) {
+			this.ps=ps;
+		}
+		System.out.println(cp+""+ps);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cp", (this.cp-1)*this.ps);
+		map.put("ps", this.ps);
+		List<UserTrans> transList = userTransService.selectPageList(map);
+		model.addAttribute("transListDTO", transList);
+		return transList;
 	}
 }
 

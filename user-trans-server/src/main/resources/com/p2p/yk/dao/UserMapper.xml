@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2p.yk.dao.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.User">
+        <id column="USER_ID" property="userId" />
+        <result column="USER_NAME" property="userName" />
+        <result column="PHONE" property="phone" />
+        <result column="EMAIL" property="email" />
+        <result column="LOGIN_PWD" property="loginPwd" />
+        <result column="PAY_PWD" property="payPwd" />
+        <result column="REG_TIME" property="regTime" />
+        <result column="ID_CARD" property="idCard" />
+        <result column="REAL_NAME" property="realName" />
+        <result column="EMER_CONTACT" property="emerContact" />
+        <result column="EMER_CONTACT_TEL" property="emerContactTel" />
+        <result column="FIXED_TEL" property="fixedTel" />
+        <result column="ADDRESS" property="address" />
+        <result column="LOGIN_IP" property="loginIp" />
+        <result column="USER_LOCK" property="userLock" />
+        <result column="LOGIN_TIME" property="loginTime" />
+        <result column="USER_TYPE_ID" property="userTypeId" />
+        <result column="SAFE_ID" property="safeId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        USER_ID, USER_NAME, PHONE, EMAIL, LOGIN_PWD, PAY_PWD, REG_TIME, ID_CARD, REAL_NAME, EMER_CONTACT, EMER_CONTACT_TEL, FIXED_TEL, ADDRESS, LOGIN_IP, USER_LOCK, LOGIN_TIME, USER_TYPE_ID, SAFE_ID
+    </sql>
+    
+    <select id="selectUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    	select <include refid="Base_Column_List"/> from tb_user where USER_ID=#{USER_ID}
+    </select>
+
+</mapper>

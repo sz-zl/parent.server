@@ -1,6 +1,10 @@
 package com.p2p.yk.service;
 
 import com.sz.p2p.entity.UserTrans;
+
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface UserTransService extends IService<UserTrans> {
 
+	List<UserTrans> selectPageList(Map<String, Object> map);
 }

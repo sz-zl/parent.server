@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.p2p.yk.dao.UserTransMapper">
+<mapper namespace="com.p2p.yk.dao.UserTransInsertMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.UserTrans">
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.UserTransInsert">
         <id column="TRANS_ID" property="transId" />
+        <result column="USER_ID" property="userId"/>
         <result column="BUSINESS" property="business" />
         <result column="TRANS_MON" property="transMon" />
         <result column="TRANS_DATE" property="transDate" />
@@ -12,7 +13,6 @@
         <result column="TRANS_OBJ" property="transObj" />
         <result column="TRANS_ACCOUNT" property="transAccount" />
         <result column="STATUS" property="status" />
-        <association property="user" column="USER_ID" select="com.p2p.yk.dao.UserMapper.selectUserById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -20,10 +20,4 @@
         TRANS_ID, USER_ID, BUSINESS, TRANS_MON, TRANS_DATE, FEE, TRANS_OBJ, TRANS_ACCOUNT, STATUS
     </sql>
     
-    <select id="selectPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
-    	select <include refid="Base_Column_List"/> from
-    	(select rownum rn,<include refid="Base_Column_List"/> from tb_user_trans)
-    	where rn&gt;#{cp} and rn&lt;=#{ps}
-    </select>
-
 </mapper>

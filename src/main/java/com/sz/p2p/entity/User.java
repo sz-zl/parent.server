@@ -80,7 +80,7 @@ public class User extends Model<User> {
     /**
      * 锁
      */
-    private String lock;
+    private String userLock;
     /**
      * 登录时间
      */
@@ -207,15 +207,15 @@ public class User extends Model<User> {
         this.loginIp = loginIp;
     }
 
-    public String getLock() {
-        return lock;
-    }
+    public String getUserLock() {
+		return userLock;
+	}
 
-    public void setLock(String lock) {
-        this.lock = lock;
-    }
+	public void setUserLock(String userLock) {
+		this.userLock = userLock;
+	}
 
-    public Date getLoginTime() {
+	public Date getLoginTime() {
         return loginTime;
     }
 
@@ -261,7 +261,7 @@ public class User extends Model<User> {
         ", fixedTel=" + fixedTel +
         ", address=" + address +
         ", loginIp=" + loginIp +
-        ", lock=" + lock +
+        ", userLock=" + userLock +
         ", loginTime=" + loginTime +
         ", userTypeId=" + userTypeId +
         ", safeId=" + safeId +

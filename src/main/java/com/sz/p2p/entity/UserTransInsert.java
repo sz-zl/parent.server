@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_user_trans")
-public class UserTrans extends Model<UserTrans> {
+public class UserTransInsert extends Model<UserTransInsert> {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class UserTrans extends Model<UserTrans> {
     /**
      * 用户id
      */
-    private User user;
+    private Double userId;
     /**
      * 业务名称（投资散标，债权转让，充值，提现，还款）
      */
@@ -68,12 +68,12 @@ public class UserTrans extends Model<UserTrans> {
         this.transId = transId;
     }
     
-	public User getUser() {
-		return user;
+    public Double getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Double userId) {
+		this.userId = userId;
 	}
 
 	public String getBusiness() {
@@ -139,7 +139,7 @@ public class UserTrans extends Model<UserTrans> {
 
 	@Override
 	public String toString() {
-		return "UserTrans [transId=" + transId + ", user=" + user + ", business=" + business + ", transMon=" + transMon
+		return "UserTrans [transId=" + transId + ", business=" + business + ", transMon=" + transMon
 				+ ", transDate=" + transDate + ", fee=" + fee + ", transObj=" + transObj + ", transAccount="
 				+ transAccount + ", status=" + status + "]";
 	}
