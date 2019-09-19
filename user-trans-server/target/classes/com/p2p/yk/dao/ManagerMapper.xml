@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2p.yk.dao.ManagerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Manager">
+        <result column="M_ID" property="mId" />
+        <result column="M_USER" property="mUser" />
+        <result column="M_PWD" property="mPwd" />
+        <result column="M_REAL_NAME" property="mRealName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        M_ID, M_USER, M_PWD, M_REAL_NAME
+    </sql>
+
+</mapper>
