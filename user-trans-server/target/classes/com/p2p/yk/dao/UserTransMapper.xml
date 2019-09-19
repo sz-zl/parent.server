@@ -26,4 +26,7 @@
     	where rn&gt;#{cp} and rn&lt;=#{ps}
     </select>
 
+	<select id="selectOneTrans" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from tb_user_trans where TRANS_ID=#{transId}
+	</select>
 </mapper>

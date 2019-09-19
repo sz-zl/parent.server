@@ -17,5 +17,15 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface UserTransService extends IService<UserTrans> {
 
+	/**
+	 * 分页查询所有交易记录
+	 * @param map
+	 * @return
+	 */
 	List<UserTrans> selectPageList(Map<String, Object> map);
+	
+	/**
+	 * 根据编号查询交易信息
+	 */
+	public UserTrans selectOneTrans(Long id);
 }

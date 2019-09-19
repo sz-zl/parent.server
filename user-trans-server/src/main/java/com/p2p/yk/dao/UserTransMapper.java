@@ -17,5 +17,15 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface UserTransMapper extends BaseMapper<UserTrans> {
 
+	/**
+	 * 分页查询所有交易记录
+	 * @param map
+	 * @return
+	 */
 	List<UserTrans> selectPageList(Map<String, Object> map);
+	
+	/**
+	 * 根据编号查询交易信息
+	 */
+	public UserTrans selectOneTrans(Long id);
 }

@@ -26,4 +26,9 @@ public class UserTransServiceImpl extends ServiceImpl<UserTransMapper, UserTrans
 		return this.baseMapper.selectPageList(map);
 	}
 
+	@Override
+	public UserTrans selectOneTrans(Long id) {
+		return this.baseMapper.selectOneTrans(id);
+	}
+
 }

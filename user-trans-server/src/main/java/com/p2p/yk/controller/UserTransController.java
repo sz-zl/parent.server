@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.p2p.yk.service.UserTransInsertService;
 import com.p2p.yk.service.UserTransService;
 import com.sz.p2p.entity.UserTrans;
@@ -24,7 +23,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
-import net.bytebuddy.asm.Advice.This;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -48,22 +46,31 @@ public class UserTransController {
 	@Autowired
 	private UserTransInsertService userTransInsertService;
 	
-	@GetMapping("show")
-	@ApiOperation(value="查询数据",notes = "注意问题")
-	@ResponseBody
-	public List<UserTrans> sh() {
-		List<UserTrans> list = userTransService.selectList(new EntityWrapper<>());
-		return list;
-	}
-	
-	@GetMapping("find")
+	/**
+	 * 根据编号查看交易记录
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("getTrans1")
 	@ApiImplicitParam(name = "id",value = "数据编号",paramType = "query",dataType = "long")
 	@ApiOperation(value="根据编号查看对象")
 	@ApiModelProperty(value="对象编号",required = true)
 	@ResponseBody
-	public UserTrans findOne(Long id) {
-		UserTrans user = userTransService.selectById(id);
+	public UserTrans getTransOne1(Long id) {
+		UserTrans user = userTransService.selectOneTrans(id);
 		return user;
+	}
+	/**
+	 * 根据编号查看交易记录
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("getTrans")
+	@ApiIgnore()
+	public String getTransOne(Long id,Model model) {
+		UserTrans userTrans = userTransService.selectOneTrans(id);
+		model.addAttribute("userTransTDO", userTrans);
+		return "";
 	}
 	
 	
@@ -74,7 +81,7 @@ public class UserTransController {
 	@ApiOperation(value="添加用户交易记录",notes = "所提供的数据必须合法")
 	@ApiModelProperty(value = "添加的对象")
 	@ResponseBody
-	public void saveTrans1(UserTransInsert userTransInsert,Model model) {
+	public void saveTrans1(UserTransInsert userTransInsert) {
 		//随便赋值,触发器会修改
 		userTransInsert.setTransId(12321L);
 		userTransInsert.setTransDate(new Date());
@@ -85,8 +92,8 @@ public class UserTransController {
 	 */
 	@ApiIgnore()
 	@GetMapping("saveTrans")
-	public String saveTrans(UserTrans userTrans,Model model) {
-		boolean flag = userTransService.insert(userTrans);
+	public String saveTrans(UserTransInsert userTransInsert,Model model) {
+		boolean flag = userTransInsertService.insert(userTransInsert);
 		if(flag) {
 			return "";
 		}
@@ -101,7 +108,26 @@ public class UserTransController {
 	@ApiOperation(value="获取所有用户交易记录",notes = "所提供的数据必须合法")
 	@ApiModelProperty(value = "添加的对象")
 	@ResponseBody
-	public List<UserTrans> listUserTrans1(Integer cp,Integer ps,Model model){
+	public List<UserTrans> listUserTrans1(Integer cp,Integer ps){
+		if(cp!=null&&cp>0) {
+			this.cp=cp;
+		}
+		if(ps!=null&&ps>0) {
+			this.ps=ps;
+		}
+		System.out.println(cp+""+ps);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cp", (this.cp-1)*this.ps);
+		map.put("ps", this.ps);
+		List<UserTrans> transList = userTransService.selectPageList(map);
+		return transList;
+	}
+	/**
+	 * 查看所有交易记录+分页
+	 */
+	@PostMapping("listUserTrans")
+	@ApiIgnore()
+	public String listUserTrans(Integer cp,Integer ps,Model model){
 		if(cp!=null&&cp>0) {
 			this.cp=cp;
 		}
@@ -114,7 +140,7 @@ public class UserTransController {
 		map.put("ps", this.ps);
 		List<UserTrans> transList = userTransService.selectPageList(map);
 		model.addAttribute("transListDTO", transList);
-		return transList;
+		return "";
 	}
 }
 
