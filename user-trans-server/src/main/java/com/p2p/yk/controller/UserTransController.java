@@ -53,12 +53,12 @@ public class UserTransController {
 	 */
 	@GetMapping("getTrans1")
 	@ApiImplicitParam(name = "id",value = "数据编号",paramType = "query",dataType = "long")
-	@ApiOperation(value="根据编号查看对象")
+	@ApiOperation(value="根据编号查看交易对象")
 	@ApiModelProperty(value="对象编号",required = true)
 	@ResponseBody
 	public UserTrans getTransOne1(Long id) {
-		UserTrans user = userTransService.selectOneTrans(id);
-		return user;
+		UserTrans userTrans = userTransService.selectOneTrans(id);
+		return userTrans;
 	}
 	/**
 	 * 根据编号查看交易记录
@@ -115,10 +115,9 @@ public class UserTransController {
 		if(ps!=null&&ps>0) {
 			this.ps=ps;
 		}
-		System.out.println(cp+""+ps);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cp", (this.cp-1)*this.ps);
-		map.put("ps", this.ps);
+		map.put("ps", this.cp*this.ps);
 		List<UserTrans> transList = userTransService.selectPageList(map);
 		return transList;
 	}

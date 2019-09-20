@@ -1,9 +1,10 @@
 package com.p2p.yk.service.impl;
 
 import com.sz.p2p.entity.Manager;
-import com.sz.p2p.dao.ManagerMapper;
-import com.sz.p2p.service.ManagerService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.p2p.yk.dao.ManagerMapper;
+import com.p2p.yk.service.ManagerService;
+
 import org.springframework.stereotype.Service;
 
 /**

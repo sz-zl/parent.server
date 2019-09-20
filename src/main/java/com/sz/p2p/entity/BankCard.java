@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_bank_card")
-public class BankCard extends Model<BankCard> {
+public class BankCard extends Model<BankCard> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

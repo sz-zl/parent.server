@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_claim")
-public class Claim extends Model<Claim> {
+public class Claim extends Model<Claim> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

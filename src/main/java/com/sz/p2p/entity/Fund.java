@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_fund")
-public class Fund extends Model<Fund> {
+public class Fund extends Model<Fund> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

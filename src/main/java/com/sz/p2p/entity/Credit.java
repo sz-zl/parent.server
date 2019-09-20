@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_credit")
-public class Credit extends Model<Credit> {
+public class Credit extends Model<Credit> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

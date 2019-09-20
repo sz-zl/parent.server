@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_city")
-public class City extends Model<City> {
+public class City extends Model<City> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

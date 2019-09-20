@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_safe_grade")
-public class SafeGrade extends Model<SafeGrade> {
+public class SafeGrade extends Model<SafeGrade> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

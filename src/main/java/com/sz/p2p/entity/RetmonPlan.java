@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_ret_mon_plan")
-public class RetmonPlan extends Model<RetmonPlan> {
+public class RetmonPlan extends Model<RetmonPlan> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,17 +1,15 @@
 spring:
     thymeleaf:      cache: false
-      #thymeleaf模版前缀
-      prefix: classpath:/static/
     devtools:      restart:        enabled: true
         exclude: WEB-INF/**
     datasource:      driver-class-name: oracle.jdbc.driver.OracleDriver
       url: jdbc:oracle:thin:@10.1.14.191:1521:orcl
       username: lisi
       password: abc    application:
-        name: user-trans-server    mvc:      view:        prefix: /
-        suffix: .jsp
+        name: user-trans-server#    mvc:#      view:#        prefix: /
+#        suffix: .jsp
 server:
-    port: 9999
+    port: 8888
 mybatis-plus:
   global-config:    db-column-underline: true
 #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";

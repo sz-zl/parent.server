@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2p.yk.dao.LoanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sz.p2p.entity.Loan">
+        <id column="LOAN_NO" property="loanNo" />
+        <result column="LOAN_ID" property="loanId" />
+        <result column="YEAR_INTEREST_RATE" property="yearInterestRate" />
+        <result column="DEADLINE" property="deadline" />
+        <result column="TOTLE_MON" property="totleMon" />
+        <result column="RECRUITED_MON" property="recruitedMon" />
+        <result column="USINGS" property="usings" />
+        <result column="STATUS" property="status" />
+        <result column="OTHER_LIABILITY" property="otherLiability" />
+        <result column="MIN_MON" property="minMon" />
+        <result column="RETURN_MON_WAY" property="returnMonWay" />
+        <result column="RETURN_MON_SOURCE" property="returnMonSource" />
+        <result column="GET_MON_DAY" property="getMonDay" />
+        <result column="CREATE_TIME" property="createTime" />
+        <association property="user" column="USER_ID" select="com.p2p.yk.dao.UserMapper.selectUserById"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        LOAN_NO, LOAN_ID, USER_ID, YEAR_INTEREST_RATE, DEADLINE, TOTLE_MON, RECRUITED_MON, USINGS, STATUS, OTHER_LIABILITY, MIN_MON, RETURN_MON_WAY, RETURN_MON_SOURCE, GET_MON_DAY, CREATE_TIME
+    </sql>
+
+	<select id="selectListPageLoans" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from
+    	(select rownum rn,<include refid="Base_Column_List"/> from tb_loan)
+    	where rn&gt;#{cp} and rn&lt;=#{ps}
+	</select>
+	
+	<select id="selectOneLoan" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from tb_loan where LOAN_NO=#{loanOn}
+	</select>
+</mapper>

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @since 2019-09-19
  */
 @TableName("tb_manager")
-public class Manager extends Model<Manager> {
+public class Manager extends Model<Manager> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

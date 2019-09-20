@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_user_trans")
-public class UserTransInsert extends Model<UserTransInsert> {
+public class UserTransInsert extends Model<UserTransInsert> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

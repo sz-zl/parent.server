@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2019-09-16
  */
 @TableName("tb_login_log")
-public class LoginLog extends Model<LoginLog> {
+public class LoginLog extends Model<LoginLog> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
