@@ -1,5 +1,8 @@
 package com.p2p.yk.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -21,6 +24,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	@Override
 	public User selectUserById(Integer id) {
 		return this.baseMapper.selectUserById(id);
+	}
+
+	@Override
+	public List<User> selectListPageUsers(Map<String, Object> map) {
+		return this.baseMapper.selectListPageUsers(map);
 	}
 
 }

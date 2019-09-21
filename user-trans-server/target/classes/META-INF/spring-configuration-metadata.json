@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "spring-cloud-eureka-server",
+      "type": "com.p2p.yk.controller.UserTransController",
+      "sourceType": "com.p2p.yk.controller.UserTransController"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

@@ -1,6 +1,8 @@
 package com.sz.p2p.entity;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -23,7 +25,7 @@ public class User extends Model<User> implements Serializable {
     /**
      * 用户ID
      */
-    @TableId(value = "USER_ID", type = IdType.AUTO)
+    @TableId(value = "USER_ID", type = IdType.INPUT)
     private Double userId;
     /**
      * 用户名
@@ -89,13 +91,33 @@ public class User extends Model<User> implements Serializable {
      * 用户类型编号
      */
     private Double userTypeId;
-    /**
+    @TableField(exist = false)
+    private UserType userType;
+    
+    public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+
+	/**
      * 安全等级编号
      */
     private Double safeId;
+    @TableField(exist = false)
+    private SafeGrade safeGrade;
 
+    public SafeGrade getSafeGrade() {
+		return safeGrade;
+	}
 
-    public Double getUserId() {
+	public void setSafeGrade(SafeGrade safeGrade) {
+		this.safeGrade = safeGrade;
+	}
+
+	public Double getUserId() {
         return userId;
     }
 

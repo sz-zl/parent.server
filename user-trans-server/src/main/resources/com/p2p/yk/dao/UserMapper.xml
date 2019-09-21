@@ -20,8 +20,8 @@
         <result column="LOGIN_IP" property="loginIp" />
         <result column="USER_LOCK" property="userLock" />
         <result column="LOGIN_TIME" property="loginTime" />
-        <result column="USER_TYPE_ID" property="userTypeId" />
-        <result column="SAFE_ID" property="safeId" />
+        <association property="userType" column="USER_TYPE_ID" select="com.p2p.yk.dao.UserTypeMapper.selectOneUserType"/>
+        <association property="safeGrade" column="SAFE_ID" select="com.p2p.yk.dao.SafeGradeMapper.selectOneSafeGrade"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -32,5 +32,17 @@
     <select id="selectUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     	select <include refid="Base_Column_List"/> from tb_user where USER_ID=#{userId}
     </select>
+
+	<select id="selectListPageUsers" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from
+    	(select rownum rn,<include refid="Base_Column_List"/> from tb_user)
+    	where
+    	<where>
+			<if test="username!=null">
+				USER_NAME=#{username} 
+			</if>
+		</where>
+    	rn&gt;#{cp} and rn&lt;=#{ps}
+	</select>
 
 </mapper>

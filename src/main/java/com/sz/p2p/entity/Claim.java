@@ -1,6 +1,8 @@
 package com.sz.p2p.entity;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -23,7 +25,7 @@ public class Claim extends Model<Claim> implements Serializable {
     /**
      * 债权表ID
      */
-    @TableId(value = "CLAIM_NO", type = IdType.AUTO)
+    @TableId(value = "CLAIM_NO", type = IdType.INPUT)
     private Double claimNo;
     /**
      * 债权编号
@@ -33,15 +35,48 @@ public class Claim extends Model<Claim> implements Serializable {
      * 散标编号
      */
     private Double loanId;
-    /**
+    @TableField(exist = false)
+    private Loan loan;
+    
+    public Loan getLoan() {
+		return loan;
+	}
+
+	public void setLoan(Loan loan) {
+		this.loan = loan;
+	}
+
+	/**
      * 借款人编号
      */
     private Double loanUserId;
-    /**
+    @TableField(exist = false)
+    private User loanUser;
+    
+    public User getLoanUser() {
+		return loanUser;
+	}
+
+	public void setLoanUser(User loanUser) {
+		this.loanUser = loanUser;
+	}
+
+	/**
      * 投资人编号
      */
     private Double fundUserId;
-    /**
+    @TableField(exist = false)
+    private User fundUser;
+    
+    public User getFundUser() {
+		return fundUser;
+	}
+
+	public void setFundUser(User fundUser) {
+		this.fundUser = fundUser;
+	}
+
+	/**
      * 债权金额
      */
     private Double claimMon;

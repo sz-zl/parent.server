@@ -22,7 +22,7 @@ public class UserType extends Model<UserType> implements Serializable {
     /**
      * 用户类型id
      */
-    @TableId(value = "USER_TYPE_NO", type = IdType.AUTO)
+    @TableId(value = "USER_TYPE_NO", type = IdType.INPUT)
     private Double userTypeNo;
     /**
      * 用户类型编号

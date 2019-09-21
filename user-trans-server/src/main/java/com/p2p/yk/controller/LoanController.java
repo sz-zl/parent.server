@@ -49,7 +49,9 @@ public class LoanController {
 	 */
 	@ResponseBody
 	@PostMapping("listLoans1")
-	@ApiImplicitParams(value = {@ApiImplicitParam(name = "cp",value = "当前页",paramType = "query",dataType = "int"),@ApiImplicitParam(name = "ps",value = "每页显示行数",paramType = "query",dataType = "int")})
+	@ApiImplicitParams(value = {
+	@ApiImplicitParam(name = "cp",value = "当前页",paramType = "query",dataType = "int"),
+	@ApiImplicitParam(name = "ps",value = "每页显示行数",paramType = "query",dataType = "int")})
 	@ApiOperation(value="查看所有散标信息")
 	public List<Loan> listLoans1(Integer cp,Integer ps){
 		if(cp!=null&&cp>0) {
@@ -96,13 +98,10 @@ public class LoanController {
 	@ResponseBody
 	@PostMapping("getLoanOne1")
 	@ApiImplicitParam(name = "id",value = "散标编号",paramType = "query",dataType = "int")
-	@ApiOperation(value="根据散标查看散标信息")
+	@ApiOperation(value="根据散标编号查看散标信息")
 	public Loan getLoanOne1(Integer id) {
 		Loan loan = loanService.selectOneLoan(id);
-		if(loan!=null) {
-			return loan;
-		}
-		return null;
+		return loan;
 	}
 	/**
 	 * 通过编号查看散标信息
@@ -162,13 +161,7 @@ public class LoanController {
 	@ApiImplicitParam(name = "loan",value = "散标对象",paramType = "query")
 	@ApiOperation(value="根据散标查看散标信息")
 	public boolean insertLoan1(Loan loan) {
-		boolean flag = loanService.insert(loan);
-		if(flag) {
-			System.out.println("添加成功!");
-			return true;
-		}
-		System.out.println("添加失败!");
-		return false;
+		return loanService.insert(loan);
 	}
 	/**
 	 * 添加散标
@@ -178,13 +171,7 @@ public class LoanController {
 	@PostMapping("insertLoan")
 	@ApiIgnore
 	public boolean insertLoan(Loan loan) {
-		boolean flag = loanService.insert(loan);
-		if(flag) {
-			System.out.println("添加成功!");
-			return true;
-		}
-		System.out.println("添加失败!");
-		return false;
+		return loanService.insert(loan);
 	}
 	
 	/**

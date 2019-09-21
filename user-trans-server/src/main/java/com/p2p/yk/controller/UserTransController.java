@@ -5,22 +5,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.p2p.yk.service.DjxClientService;
 import com.p2p.yk.service.UserTransInsertService;
 import com.p2p.yk.service.UserTransService;
+import com.sz.p2p.entity.User;
 import com.sz.p2p.entity.UserTrans;
 import com.sz.p2p.entity.UserTransInsert;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;
@@ -36,15 +37,27 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags={"用户交易记录接口"})
 @Controller
 @RequestMapping("/userTrans")
+@ConfigurationProperties(prefix = "spring-cloud-eureka-server")
 public class UserTransController {
 	
 	private int cp=1;
 	private int ps=10;
-
+	@Autowired
+	private DjxClientService DjxClientService;
 	@Autowired
 	private UserTransService userTransService;
 	@Autowired
 	private UserTransInsertService userTransInsertService;
+	
+	@ResponseBody
+	@PostMapping("show")
+	public User ShowDetails() {
+		System.out.println("调用了show方法");
+		User u = DjxClientService.accountInfo();
+		return u;
+	}
+	
+	
 	
 	/**
 	 * 根据编号查看交易记录
@@ -81,11 +94,11 @@ public class UserTransController {
 	@ApiOperation(value="添加用户交易记录",notes = "所提供的数据必须合法")
 	@ApiModelProperty(value = "添加的对象")
 	@ResponseBody
-	public void saveTrans1(UserTransInsert userTransInsert) {
+	public Boolean saveTrans1(UserTransInsert userTransInsert) {
 		//随便赋值,触发器会修改
 		userTransInsert.setTransId(12321L);
 		userTransInsert.setTransDate(new Date());
-		userTransInsertService.insert(userTransInsert);
+		return userTransInsertService.insert(userTransInsert);
 	}
 	/** 
 	 * 添加交易记录
@@ -106,6 +119,9 @@ public class UserTransController {
 	 */
 	@GetMapping("listUserTrans1")
 	@ApiOperation(value="获取所有用户交易记录",notes = "所提供的数据必须合法")
+	@ApiImplicitParams(value = {
+	@ApiImplicitParam(name = "cp",value = "当前页",paramType = "query",dataType = "int"),
+	@ApiImplicitParam(name = "ps",value = "每页显示行数",paramType = "query",dataType = "int")})
 	@ApiModelProperty(value = "添加的对象")
 	@ResponseBody
 	public List<UserTrans> listUserTrans1(Integer cp,Integer ps){

@@ -22,7 +22,7 @@ public class SafeGrade extends Model<SafeGrade> implements Serializable {
     /**
      * 安全ID
      */
-    @TableId(value = "SOFA_ID", type = IdType.AUTO)
+    @TableId(value = "SOFA_ID", type = IdType.INPUT)
     private Double sofaId;
     /**
      * 安全等级

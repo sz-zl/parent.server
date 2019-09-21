@@ -1,6 +1,10 @@
 package com.p2p.yk.service;
 
 import com.sz.p2p.entity.User;
+
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -13,5 +17,16 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface UserService extends IService<User> {
 
+	/**
+	 * 根据编号查看用户
+	 * @param id
+	 * @return
+	 */
 	User selectUserById(Integer id);
+	
+	/**
+	 * 查看所用用户信息+联表+分页
+	 * @return
+	 */
+	List<User> selectListPageUsers(Map<String, Object> map);
 }

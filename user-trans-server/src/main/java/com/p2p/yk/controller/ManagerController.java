@@ -38,7 +38,7 @@ public class ManagerController {
 	 * @return
 	 */
 	@PostMapping("getManager")
-	@ApiImplicitParam(name = "manager",value = "登录账号对象",paramType = "query" ,dataType = "Manager")
+	@ApiImplicitParam(name = "manager",value = "登录账号对象",paramType = "query")
 	@ApiOperation(value="登录")
 	@ResponseBody
 	public boolean getManager(Manager manager,HttpServletRequest request) {
