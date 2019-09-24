@@ -26,7 +26,7 @@ public class User extends Model<User> implements Serializable {
      * 用户ID
      */
     @TableId(value = "USER_ID", type = IdType.INPUT)
-    private Double userId;
+    private Integer userId;
     /**
      * 用户名
      */
@@ -94,7 +94,8 @@ public class User extends Model<User> implements Serializable {
     @TableField(exist = false)
     private UserType userType;
     
-    public UserType getUserType() {
+
+	public UserType getUserType() {
 		return userType;
 	}
 
@@ -117,11 +118,11 @@ public class User extends Model<User> implements Serializable {
 		this.safeGrade = safeGrade;
 	}
 
-	public Double getUserId() {
+	public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Double userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

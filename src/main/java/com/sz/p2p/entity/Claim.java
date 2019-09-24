@@ -21,8 +21,36 @@ import java.io.Serializable;
 public class Claim extends Model<Claim> implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    
 
-    /**
+    public Claim() {
+	}
+
+	public Claim(Double claimNo, Double claimId, Double loanId, Loan loan, Double loanUserId, User loanUser,
+			Double fundUserId, User fundUser, Double claimMon, Double returnMonDay, Double returnMonNum, Double status,
+			Date claimSellTime, Date claimBuyDate, Date claimBuyTime, Date hasClaimMinTime) {
+		this.claimNo = claimNo;
+		this.claimId = claimId;
+		this.loanId = loanId;
+		this.loan = loan;
+		this.loanUserId = loanUserId;
+		this.loanUser = loanUser;
+		this.fundUserId = fundUserId;
+		this.fundUser = fundUser;
+		this.claimMon = claimMon;
+		this.returnMonDay = returnMonDay;
+		this.returnMonNum = returnMonNum;
+		this.status = status;
+		this.claimSellTime = claimSellTime;
+		this.claimBuyDate = claimBuyDate;
+		this.claimBuyTime = claimBuyTime;
+		this.hasClaimMinTime = hasClaimMinTime;
+	}
+    
+    
+
+	/**
      * 债权表ID
      */
     @TableId(value = "CLAIM_NO", type = IdType.INPUT)

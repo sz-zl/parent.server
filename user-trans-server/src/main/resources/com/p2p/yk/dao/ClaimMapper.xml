@@ -30,5 +30,9 @@
     	(select rownum rn,<include refid="Base_Column_List"/> from tb_claim)
     	where rn&gt;#{cp} and rn&lt;=#{ps}
 	</select>
+		
+	<select id="selectOneLoan" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+		select <include refid="Base_Column_List"/> from tb_claim where CLAIM_NO = #{claimNo}
+	</select>
 	
 </mapper>

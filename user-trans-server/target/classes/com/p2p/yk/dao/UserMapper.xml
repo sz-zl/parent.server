@@ -36,13 +36,13 @@
 	<select id="selectListPageUsers" parameterType="java.util.Map" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List"/> from
     	(select rownum rn,<include refid="Base_Column_List"/> from tb_user)
-    	where
     	<where>
-			<if test="username!=null">
-				USER_NAME=#{username} 
-			</if>
+			<if test="username!=null and username!=''">
+				and USER_NAME=#{username} 
+			</if>  
+			and rn&gt;#{cp} and rn&lt;=#{ps}  	 
 		</where>
-    	rn&gt;#{cp} and rn&lt;=#{ps}
+		
 	</select>
 
 </mapper>

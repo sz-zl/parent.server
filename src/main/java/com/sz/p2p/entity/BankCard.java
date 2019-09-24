@@ -31,7 +31,7 @@ public class BankCard extends Model<BankCard> implements Serializable {
     /**
      * 银行卡号
      */
-    private Double cardId;
+    private String cardId;
     /**
      * 开户银行
      */
@@ -66,11 +66,11 @@ public class BankCard extends Model<BankCard> implements Serializable {
         this.userId = userId;
     }
 
-    public Double getCardId() {
+    public String getCardId() {
         return cardId;
     }
 
-    public void setCardId(Double cardId) {
+    public void setCardId(String cardId) {
         this.cardId = cardId;
     }
 

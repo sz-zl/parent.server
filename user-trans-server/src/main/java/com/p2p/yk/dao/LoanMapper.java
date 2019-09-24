@@ -30,4 +30,9 @@ public interface LoanMapper extends BaseMapper<Loan> {
 	 * @return
 	 */
 	Loan selectOneLoan(Integer id);
+	
+	/**
+	 * 查看最大编号
+	 */
+	Long selectMaxId();
 }

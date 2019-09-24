@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../scripts/jquery/jquery-1.7.1.js"></script>
+<link href="../style/authority/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="../style/authority/common_style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../scripts/authority/commonAll.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.fancybox-1.3.4.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="../style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
+<script type="text/javascript" src="../scripts/artDialog/artDialog.js?skin=default"></script>
+<!-- <script type="text/javascript" src="../html/scripts/vue/vue.js"> </script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<title>散标表查询</title>
+<style>
+	.alt td{ background:black !important;}
+</style>
+</head>
+<body>
+	<form id="submitForm" name="submitForm" action="" method="post">
+		<input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
+		<input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
+		<div id="container">
+			<div class="ui_content">
+				<div class="ui_text_indent">
+					<div id="box_border">
+						<div id="box_top">搜索</div>
+						<div id="box_center">
+							用户名
+							<select name="fangyuanEntity.fyXqCode" id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();">
+                                <option value="">--请选择--</option>
+                            </select>
+						</div>
+						<div id="box_bottom">
+							<input type="button" value="查询" class="ui_input_btn01" onclick="search();" /> 
+							<input type="button" value="新增" class="ui_input_btn01" id="addBtn" /> 
+							<input type="button" value="删除" class="ui_input_btn01" onclick="batchDel();" /> 
+							<input type="button" value="导入" class="ui_input_btn01" id="importBtn" />
+							<input type="button" value="导出" class="ui_input_btn01" onclick="exportExcel();" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div  id="vuejs" class="ui_content">
+				<div class="ui_tb">
+					<table id="mytable" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+						<tr>
+							<th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />
+							</th>
+							<th>散标表id</th>
+							<th>用户名</th>
+							<th>年利率</th>
+							<th>还款期限</th>
+							<th>总金额</th>
+							<th>已招募金额</th>
+							<th>用途</th>
+							<th>状态</th>
+							<th>其他负债</th>
+						</tr>
+						<tr v-for="loanList in loanLists ">
+							<td width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" /></td>							
+					 		<td v-text="loanList.loanNo"> </td>
+					 		<td v-text="loanList.user.realName"> </td>
+					 		<td v-text="loanList.yearInterestRate"> </td>
+					 		<td v-text="loanList.deadline"> </td>
+					 		<td v-text="loanList.totleMon"> </td>
+					 		<td v-text="loanList.recruitedMon"> </td>
+					 		<td v-text="loanList.usings"> </td>
+					 		<td v-text="loanList.status"> </td>
+					 		<td v-text="loanList.otherLiability"> </td>
+						</tr>
+					</table>
+				</div>
+				<div class="ui_tb_h30">
+					<div class="ui_flt" style="height: 30px; line-height: 30px;">
+						共有
+						<span class="ui_txt_bold04">90</span>
+						条记录，当前第
+						<span class="ui_txt_bold04">1
+						/
+						9</span>
+						页
+					</div>
+					<div class="ui_frt">
+						<!--    如果是第一页，则只显示下一页、尾页 -->
+						
+							<input type="button" value="首页" class="ui_input_btn01" />
+							<input type="button" value="上一页" class="ui_input_btn01" />
+							<input type="button" value="下一页" class="ui_input_btn01"
+								onclick="jumpNormalPage(2);" />
+							<input type="button" value="尾页" class="ui_input_btn01"
+								onclick="jumpNormalPage(9);" />
+						
+						
+						
+						<!--     如果是最后一页，则只显示首页、上一页 -->
+						
+						转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页
+							 <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<script> 
+//在使用vue的事件功能时，必须保证需要用的事件发生在该实例中，否则无法生效
+    var vm= new Vue({ 
+   	el: "#vuejs",
+   	data: {
+   		loanLists: [],
+   	},
+   	 created: function () {
+   	//为了在内部函数能使用外部函数的this对象，要给它赋值了一个名叫self的变量。
+   	 var self = this; 
+   	//在vue中进行ajax提交，三种方式：1.jquery的ajax提交，2.vue-resource（vue插件），在firstTest中编写了例子 3.axios（vue插件），但未试过，
+   	 $.ajax({ 
+   		 url: '../loan/listLoans1', 
+   		 type: 'post', 
+   		 data: '',
+   		 dataType: 'json' ,
+   		 }).then(function (res) 
+   		 { 
+   			 console.log(res);  	　
+   		//把从json获取的数据赋值给数组 
+   		 self.loanLists = res;
+   		  }).fail(function () { 
+   			  console.log('失败') 
+   			     }) 
+   		} 
+  })  
+   	 </script>
+</body>
+</html>

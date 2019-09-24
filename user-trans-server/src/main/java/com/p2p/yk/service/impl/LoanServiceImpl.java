@@ -31,4 +31,9 @@ public class LoanServiceImpl extends ServiceImpl<LoanMapper, Loan> implements Lo
 		return this.baseMapper.selectOneLoan(id);
 	}
 
+	@Override
+	public Long selectMaxId() {
+		return this.baseMapper.selectMaxId();
+	}
+
 }

@@ -1,7 +1,6 @@
 package com.p2p.yk.dao;
 
 import com.sz.p2p.entity.Claim;
-
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +21,11 @@ public interface ClaimMapper extends BaseMapper<Claim> {
 	 * @return
 	 */
 	List<Claim> selectListPageClaims(Map<String, Object> map);
+	
+	/**
+	 * 根据债权编号查询数据
+	 * @param id
+	 * @return
+	 */
+	Claim selectOneLoan(Integer id);
 }

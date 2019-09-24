@@ -35,4 +35,8 @@
 	<select id="selectOneLoan" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List"/> from tb_loan where LOAN_NO=#{loanOn}
 	</select>
+	
+	<select id="selectMaxId" resultType="java.lang.Long">
+		select max(loan_no) from tb_loan
+	</select>
 </mapper>

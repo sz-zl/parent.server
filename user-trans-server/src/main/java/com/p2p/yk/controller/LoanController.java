@@ -2,11 +2,16 @@ package com.p2p.yk.controller;
 
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.p2p.yk.service.LoanService;
 import com.sz.p2p.entity.Loan;
+import com.sz.p2p.entity.Split;
+import com.sz.p2p.entity.User;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -53,7 +58,7 @@ public class LoanController {
 	@ApiImplicitParam(name = "cp",value = "当前页",paramType = "query",dataType = "int"),
 	@ApiImplicitParam(name = "ps",value = "每页显示行数",paramType = "query",dataType = "int")})
 	@ApiOperation(value="查看所有散标信息")
-	public List<Loan> listLoans1(Integer cp,Integer ps){
+	public Split<Loan> listLoans1(Integer cp,Integer ps){
 		if(cp!=null&&cp>0) {
 			this.cp=cp;
 		}
@@ -64,8 +69,10 @@ public class LoanController {
 		map.put("cp", (this.cp-1)*this.ps);
 		map.put("ps", this.cp*this.ps);
 		List<Loan> loanList = loanService.selectListPageLoans(map);
-		System.out.println(loanList);
-		return loanList;
+		int count = loanService.selectCount(new EntityWrapper<Loan>());
+		int pages = (int)Math.ceil(1.0*count/this.ps);
+		Split<Loan> split = new Split<>(count, this.cp, this.ps, pages, loanList);
+		return split;
 	}
 	/**
 	 * 查看所有的借款/散标信息+分页
@@ -86,9 +93,13 @@ public class LoanController {
 		map.put("cp", (this.cp-1)*this.ps);
 		map.put("ps", this.cp*this.ps);
 		List<Loan> loanList = loanService.selectListPageLoans(map);
-		model.addAttribute("loanListDTO", loanList);
+		int count = loanService.selectCount(new EntityWrapper<Loan>());
+		int pages = (int)Math.ceil(1.0*count/this.ps);
+		Split<Loan> split = new Split<>(count, this.cp, this.ps, pages, loanList);
+		model.addAttribute("splitDTO", split);
 		return "";
 	}
+	
 	
 	/**
 	 * 通过编号查看散标信息
@@ -100,8 +111,7 @@ public class LoanController {
 	@ApiImplicitParam(name = "id",value = "散标编号",paramType = "query",dataType = "int")
 	@ApiOperation(value="根据散标编号查看散标信息")
 	public Loan getLoanOne1(Integer id) {
-		Loan loan = loanService.selectOneLoan(id);
-		return loan;
+		return loanService.selectOneLoan(id);
 	}
 	/**
 	 * 通过编号查看散标信息
@@ -117,6 +127,8 @@ public class LoanController {
 		}
 		return "error";
 	}
+	
+	
 	
 	/**
 	 * 修改散标
@@ -135,6 +147,8 @@ public class LoanController {
 			return false;
 		}
 	}
+	
+	
 	/**
 	 * 修改散标
 	 */
@@ -159,8 +173,18 @@ public class LoanController {
 	@ResponseBody
 	@PostMapping("insertLoan1")
 	@ApiImplicitParam(name = "loan",value = "散标对象",paramType = "query")
-	@ApiOperation(value="根据散标查看散标信息")
-	public boolean insertLoan1(Loan loan) {
+	@ApiOperation(value="添加散标")
+	public boolean insertLoan1(@RequestBody Loan loan) {
+		redis.clients.jedis.Jedis jedis = new redis.clients.jedis.Jedis("10.1.14.191",6379);
+		String str = jedis.get("myuser");
+		System.out.println(loan);
+		Long maxId = loanService.selectMaxId();
+		Long id = Long.valueOf(maxId)+1;
+		loan.setLoanNo(id);
+		User u = JSON.parseObject(str,User.class);
+		double userid = u.getUserId();
+		loan.setUserId(userid);
+		loan.setLoanId(id);
 		return loanService.insert(loan);
 	}
 	/**
@@ -170,45 +194,25 @@ public class LoanController {
 	 */
 	@PostMapping("insertLoan")
 	@ApiIgnore
-	public boolean insertLoan(Loan loan) {
-		return loanService.insert(loan);
+	public String insertLoan(Loan loan) {
+		System.out.println("进入了");
+		redis.clients.jedis.Jedis jedis = new redis.clients.jedis.Jedis("10.1.14.191",6379);
+		String str = jedis.get("myuser");
+		System.out.println(loan);
+		if(str!=null) {
+			Long maxId = loanService.selectMaxId();
+			Long id = Long.valueOf(maxId)+1;
+			loan.setLoanNo(id);
+			User u = JSON.parseObject(str,User.class);
+			double userid = u.getUserId();
+			loan.setUserId(userid);
+			loan.setLoanId(id);
+			loanService.insert(loan);
+			return "index";
+		}else {
+			return "login2";
+		}
 	}
 	
-	/**
-	 * 修改散标
-	 * @param id
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("deleteLoan1")
-	@ApiImplicitParam(name = "id",value = "散标对象编号",paramType = "query",type = "int")
-	@ApiOperation(value="根据散标编号删除散标")
-	public boolean deleteLoan1(Integer id) {
-		boolean flag = loanService.deleteById(id);
-		if(flag) {
-			System.out.println("删除成功!");
-			return true;
-		}
-		System.out.println("删除失败!");
-		return false;
-	}
-	/**
-	 * 修改散标
-	 * @param id
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("deleteLoan")
-	@ApiImplicitParam(name = "id",value = "散标对象编号",paramType = "query",type = "int")
-	@ApiOperation(value="根据散标编号删除散标")
-	public boolean deleteLoan(Integer id) {
-		boolean flag = loanService.deleteById(id);
-		if(flag) {
-			System.out.println("删除成功!");
-			return true;
-		}
-		System.out.println("删除失败!");
-		return false;
-	}
 }
 

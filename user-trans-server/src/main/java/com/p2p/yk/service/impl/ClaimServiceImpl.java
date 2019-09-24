@@ -26,4 +26,9 @@ public class ClaimServiceImpl extends ServiceImpl<ClaimMapper, Claim> implements
 		return this.baseMapper.selectListPageClaims(map);
 	}
 
+	@Override
+	public Claim selectOneLoan(Integer id) {
+		return this.baseMapper.selectOneLoan(id);
+	}
+
 }

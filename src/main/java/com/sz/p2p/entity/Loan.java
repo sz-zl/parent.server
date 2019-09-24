@@ -26,11 +26,11 @@ public class Loan extends Model<Loan> {
 	 * 散标表ID
 	 */
 	@TableId(value = "LOAN_NO", type = IdType.INPUT)
-	private Double loanNo;
+	private Long loanNo;
 	/**
 	 * 散标编号
 	 */
-	private Double loanId;
+	private Long loanId;
 	/**
 	 * 用户ID
 	 */
@@ -86,19 +86,19 @@ public class Loan extends Model<Loan> {
 	 */
 	private Date createTime;
 
-	public Double getLoanNo() {
+	public Long getLoanNo() {
 		return loanNo;
 	}
 
-	public void setLoanNo(Double loanNo) {
+	public void setLoanNo(Long loanNo) {
 		this.loanNo = loanNo;
 	}
 
-	public Double getLoanId() {
+	public Long getLoanId() {
 		return loanId;
 	}
 
-	public void setLoanId(Double loanId) {
+	public void setLoanId(Long loanId) {
 		this.loanId = loanId;
 	}
 

@@ -17,6 +17,11 @@
 	</properties>
 
 	<dependencies>
+		 <dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.4</version>
+		</dependency>
 		<!-- 消费者 start -->
 		<dependency>
 		    <groupId>org.springframework.cloud</groupId>
@@ -49,21 +54,11 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	
-		<!-- 断路器依赖 -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-		</dependency>
-	
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
 		<!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency> -->
-		<dependency>
 		      <groupId>org.springframework.boot</groupId>
 		      <artifactId>spring-boot-starter-data-jpa</artifactId>
 	    </dependency>
@@ -79,12 +74,7 @@
 		      <groupId>commons-collections</groupId>
 		      <artifactId>commons-collections</artifactId>
 		      <version>3.2.2</version>
-	    </dependency>
-		<!--支持跳转,springboot推荐使用thymeleaf模板引擎-->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+	    </dependency> -->
 		<!-- 热部署start -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

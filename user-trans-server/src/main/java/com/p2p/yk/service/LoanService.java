@@ -30,4 +30,9 @@ public interface LoanService extends IService<Loan> {
 	 * @return
 	 */
 	Loan selectOneLoan(Integer id);
+	
+	/**
+	 * 查看最大编号
+	 */
+	Long selectMaxId();
 }

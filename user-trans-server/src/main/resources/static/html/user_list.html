@@ -10,41 +10,11 @@
 <script type="text/javascript" src="../scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="../style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
 <script type="text/javascript" src="../scripts/artDialog/artDialog.js?skin=default"></script>
-<title>用户管理系统</title>
-<script type="text/javascript">
+<!-- <script type="text/javascript" src="../html/scripts/vue/vue.js"> </script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<title>用户信息管理</title>
+<!-- <script type="text/javascript">
 	$(document).ready(function(){
-		$.ajax({
-                url : "../loan/listLoans1",
-                dataType : "json",//数据格式 
-                type : "post",//请求方式
-                success : function(data) {   //如果请求成功，返回数据。
-				console.log(data);
-                var html = $("#mytable").html();
-                for(var i=0;i<data.length;i++){    //遍历data数组
-						console.log(data[i].createTime);
-                        html +="<tr>";
-						html +='<td><input type="checkbox" name="IDCheck" value='+data[i].userId+' class="acb" /></td>';
-						html +='"<td>'+data[i].userName+'</td>'
-							+'<td>'+data[i].phone+'</td>'
-							+'<td>'+data[i].email+'</td>'
-							+'<td>'+data[i].regTime+'</td>'
-							+'<td>'+data[i].idCard+'</td>'
-							+'<td>'+data[i].realName+'</td>'
-							+'<td>'+data[i].emerContact+'</td>'
-							+'<td>'+data[i].emerContactTel+'</td>'
-							+'<td>'+data[i].fixedTel+'</td>'
-							+'<td>'+data[i].address+'</td>'
-							+'<td>'+data[i].userType.userTypeName+'</td>'
-							+'<td>'+data[i].safeGrade.sofaGrade+'</td>'
-							+'<td>'
-								+'<a href="house_edit.html?fyID='+data[i].userId+'" class="edit">修改</a>' 
-								+'<a href="javascript:del('+data[i].userId+');">删除</a>'
-							+'</td>';
-                    }
-                    $("#mytable").html(html); //在html页面id=mytable的标签里显示html内容
-                },
-            });
-		
 	    /** 导入  **/
 	    $("#importBtn").fancybox({
 	    	'href'  : '/xngzf/archives/importFangyuan.action',
@@ -147,7 +117,7 @@
 			$("#submitForm").attr("action", "house_list.html?page=" + 1).submit();
 		}
 	}
-</script>
+</script> -->
 <style>
 	.alt td{ background:black !important;}
 </style>
@@ -156,19 +126,17 @@
 	<form id="submitForm" name="submitForm" action="" method="post">
 		<input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
 		<input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
-		<div id="container">
+		<div id="vuejs">
 			<div class="ui_content">
 				<div class="ui_text_indent">
 					<div id="box_border">
 						<div id="box_top">搜索</div>
 						<div id="box_center">
 							用户名
-							<select name="fangyuanEntity.fyXqCode" id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();">
-                                <option value="">--请选择--</option>
-                            </select>
+                            <input type="text" v-model="userName" id="userName" name="userName" />
 						</div>
 						<div id="box_bottom">
-							<input type="button" value="查询" class="ui_input_btn01" onclick="search();" /> 
+							<input type="button" value="查询" class="ui_input_btn01" @click="advancedQuery();" /> 
 							<input type="button" value="新增" class="ui_input_btn01" id="addBtn" /> 
 							<input type="button" value="删除" class="ui_input_btn01" onclick="batchDel();" /> 
 							<input type="button" value="导入" class="ui_input_btn01" id="importBtn" />
@@ -177,7 +145,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ui_content">
+			<div   class="ui_content">
 				<div class="ui_tb">
 					<table id="mytable" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
 						<tr>
@@ -186,36 +154,33 @@
 							<th>用户名</th>
 							<th>手机号</th>
 							<th>邮箱</th>
-							<th>注册时间</th>
 							<th>身份证</th>
 							<th>真实姓名</th>
 							<th>紧急联系人</th>
 							<th>紧急联系人电话</th>
 							<th>固定电话</th>
 							<th>常住地址</th>
-							<th>用户类型</th>
+							 <th>用户类型</th> 
 							<th>安全等级</th>
 						</tr>
-							<!-- <tr>
-								<td>
-								<input type="checkbox" name="IDCheck" value="14458579642011" class="acb" />
-								</td>
-								<td>城中区</td>
-								<td>瑞景河畔16号楼1-111</td>
-								<td>65.97㎡</td>
-								<td>65.97㎡</td>
-								<td>一室一厅一卫</td>
-								<td>混凝土</td>
-								<td>公租房</td>
-								<td>建成待租</td>
-								<td>
-									<a href="house_edit.html?fyID=14458579642011" class="edit">编辑</a> 
-									<a href="javascript:del('14458579642011');">删除</a>
-								</td>
-							</tr> -->
+						<tr v-for=" user in users">
+							<td width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" /></td>							
+					 		<td v-text="user.userName"> </td>
+							<td v-text="user.phone"> </td>
+							<td v-text="user.email"> </td>
+							<td v-text="user.idCard"> </td>  
+							<td v-text="user.realName"> </td>
+							<td v-text="user.emerContact"> </td>
+							<td v-text="user.emerContactTel"> </td>
+							<td v-text="user.fixedTel"> </td>
+							<td v-text="user.address"> </td>
+							<td v-text="user.userType.userTypeName"> </td>
+							<td v-text="user.safeId"> </td>
+						</tr>
 					</table>
 				</div>
-				<div class="ui_tb_h30">
+				<!--原先分页部分开始 -->
+				<!-- <div class="ui_tb_h30">
 					<div class="ui_flt" style="height: 30px; line-height: 30px;">
 						共有
 						<span class="ui_txt_bold04">90</span>
@@ -226,25 +191,126 @@
 						页
 					</div>
 					<div class="ui_frt">
-						<!--    如果是第一页，则只显示下一页、尾页 -->
+						   如果是第一页，则只显示下一页、尾页
 						
 							<input type="button" value="首页" class="ui_input_btn01" />
 							<input type="button" value="上一页" class="ui_input_btn01" />
 							<input type="button" value="下一页" class="ui_input_btn01"
 								onclick="jumpNormalPage(2);" />
 							<input type="button" value="尾页" class="ui_input_btn01"
-								onclick="jumpNormalPage(9);" />
-						
-						
-						
-						<!--     如果是最后一页，则只显示首页、上一页 -->
-						
+								onclick="jumpNormalPage(9);" />															
+						    如果是最后一页，则只显示首页、上一页						
 						转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页
 							 <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />
 					</div>
-				</div>
+				</div>  -->
+				<!-- 原先分页部分结束 -->
+				 <!-- 后来分页部分开始 -->
+				 				<div class="ui_tb_h30" style="height:300px;margin-right:380px">
+				<!-- class="ui_flt" -->
+					<div  style="height: 30px; line-height: 30px;text-align:center">
+						共有 {{total}}条记录，当前第 {{pageNum}} / {{pages}}页
+					</div>
+					<!--  在行内中如果要使用由vue绑定的数据，必须要与vue产生联系，如下面的@和样式之前的：,都是使其中的数据与vue的数据进行绑定，否则之后当成一般的文本进行解析 -->
+					<div class="ui_frt"  style="margin-left:300px" >
+						<input type="button" value="首页" class="ui_input_btn01" @click="turnPage(0)"/>
+						<input type="button" value="上一页" class="ui_input_btn01" @click="turnPage(-1)" :disabled="pageNum==1?true:false"/>
+						<input type="button" value="下一页" class="ui_input_btn01" @click="turnPage(1)" :disabled="pageNum==pages?true:false" />
+						<input type="button" value="尾页" class="ui_input_btn01"  @click="turnPage(2)"   />					
+						转到第
+						<select class="ui_input_txt02"  style="width:50px;height:30px" v-model="selectda" >
+							<!--这个地方用v-for循环，则无法设置单选框的默认选项，类比上面的贷款类型，要直接输入数值，示例如下，才可以得到  -->
+					  <option v-for="page in pages" v-bind:value="page" >{{page}}</option> 
+							<!--  这样可以体现默认值
+							 <option value="1" >1</option>
+							 <option value="2" selected="selected" >2</option> -->
+						</select>
+						页
+						<input type="button" class="ui_input_btn01" value="跳转" @click="turntoPage();" />						
+					</div> 
+				</div>	
+				 <!-- 后来分页部分结束 -->
 			</div>
 		</div>
 	</form>
+	<script> 
+//在使用vue的事件功能时，必须保证需要用的事件发生在该实例中，否则无法生效
+    var vm= new Vue({ 
+   	el: "#vuejs",
+   	data: {
+   		users: [],
+   		userName:"",
+   		selectda:"1",  //跳转的页数
+   		//以下几行分别为当前页，总页数，当前页面总记录数，符合要求总记录数
+  		pageNum:'',
+   		pages:'',
+   		size:'',
+   		total:''  		
+   	},
+   	 created: function () {
+   	//为了在内部函数能使用外部函数的this对象，要给它赋值了一个名叫self的变量。
+   	 var self = this; 
+   	//在vue中进行ajax提交，三种方式：1.jquery的ajax提交，2.vue-resource（vue插件），在firstTest中编写了例子 3.axios（vue插件），但未试过，
+   	 $.ajax({ 
+   		 url: '../user/listUsers1', 
+   		 type: 'get', 
+   		 data: '',
+   		 dataType: 'json' ,
+   		 }).then(function (res) 
+   		 { 
+   			 console.log(res);  	　
+   		//把从json获取的数据赋值给数组 
+   		 self.users = res.elementList;
+  		 self.pages=res.pages;
+  		 self.size=res.ps;
+  		 self.total=res.count;
+  		 self.pageNum=res.cp;
+   		  }).fail(function () { 
+   			  console.log('失败') 
+   			     }) 
+   	 },  /* created结束 */
+ 	methods:{	
+			advancedQuery(){
+			alert('高级查询开始了');
+			$.ajax({
+			url: '../user/listUsers1', 
+	   		 type: 'get',  	   		
+	   		 data: 'username='+$("#userName").val()+'&cp='+this.pageNum  /* +'&audit_status='+this.status */,             /* 这两种传递值的方式都可以this.realname */     
+	   		 dataType: 'json' ,
+	   		 }).then(function (res) 
+	   		 {   console.log($("#userName").val());
+	   			 console.log("回复数据"+res);  	　
+	   		//把从json获取的数据赋值给数组,上面 采用self代替this,但是直接使用vm实例对象，应该也可以
+	   		 vm.users = res.elementList;
+				 vm.pages=res.pages;
+				 vm.size=res.ps;
+				 vm.total=res.count;
+				 vm.pageNum=res.cp;
+	   		  }).fail(function () { 
+	   			  console.log('失败')
+	   			     })   				
+			},
+			turnPage(increment){
+				console.log("increment"+increment);
+				if(increment==0){
+					vm.pageNum=1;
+				}else if(increment==-1){
+					vm.pageNum=vm.pageNum-1;
+				}else if(increment==1){
+					vm.pageNum=vm.pageNum+1;
+				}else {
+					alert("要去的页数为"+increment);
+					vm.pageNum=vm.pages
+				}
+				this.advancedQuery()   				
+			},
+			turntoPage(){
+				var a=vm.selectda;
+				alert("经过turntopage的页面为"+a);
+				this.turnPage(a)  				
+			}
+		} 
+   })  
+   	 </script>
 </body>
 </html>
